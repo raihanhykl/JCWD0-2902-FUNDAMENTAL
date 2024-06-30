@@ -67,3 +67,41 @@ function checkDup(arrays: number[]): number[] {
 }
 
 console.log(checkDup(arr0));
+
+console.log("===== 5 =====");
+console.log("===== 6 =====");
+
+var givenArr1: any[] = [1, [], undefined, {}, "string", {}, []];
+function checkArrayData(arrays: any[]) {
+  var value: any[] = [];
+  for (var i = 0; i < arrays.length; i++) {
+    var value1: any[] = arrays[i];
+    if (typeof value1 == "object") {
+      console.log(`tipe data ${value1} adalah object`);
+    } else {
+      value.push(value1);
+    }
+  }
+  return value;
+}
+console.log(checkArrayData(givenArr1));
+
+console.log("===== 7 =====");
+
+var givenArr1: any[] = [10, 20, 40, 10, 50, 30, 10, 60, 10];
+function sumDuplicate(arrays: any[]) {
+  var value2: number = 0;
+  for (var i = 0; i < arrays.length; i++) {
+    var value1 = arrays.filter((v) => v == arrays[i]);
+    if (value1.length > 1) {
+      for (var j = 0; j < value1.length; j++) {
+        console.log(value1[j]);
+
+        value2 += value1[j];
+      }
+    }
+  }
+  return value2;
+}
+
+console.log(sumDuplicate(givenArr1));
