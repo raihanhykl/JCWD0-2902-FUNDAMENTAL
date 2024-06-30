@@ -54,13 +54,24 @@ console.log(combineArrays(arr0, arr1));
 console.log("===== 4 =====");
 
 var arr0: number[] = [1, 2, 2, 2, 3, 3, 4, 5, 5];
+var seen: { [key: number]: number } = {};
 
 function checkDup(arrays: number[]): number[] {
   var arr1: number[] = [];
   for (var i = 0; i < arrays.length; i++) {
-    var value = arrays[i];
-    var value1 = arrays.filter((v) => v == arrays[i]);
-    if (value1.length > 1) arr1.push(value1[0]);
+    var num = arrays[i];
+    if (seen[num]) {
+      seen[num]++;
+    } else {
+      seen[num] = 1;
+    }
+  }
+
+  for (var key in seen) {
+    var item = Number(key);
+    if (seen[key] > 1) {
+      arr1.push(item);
+    }
   }
 
   return arr1;
@@ -69,9 +80,43 @@ function checkDup(arrays: number[]): number[] {
 console.log(checkDup(arr0));
 
 console.log("===== 5 =====");
+
+var givenArr1: any[] = [1, 2, 3, 4, 5];
+var givenArr2: number[] = [3, 4, 5, 6, 7];
+var seen: { [key: number]: number } = {};
+function checkDifference(arrays1: number[], arrays2: number[]) {
+  var finalArray: number[] = [];
+  for (var i = 0; i < arrays1.length; i++) {
+    var num = arrays1[i];
+    if (seen[num]) {
+      seen[num]++;
+    } else {
+      seen[num] = 1;
+    }
+  }
+  for (var j = 0; j < arrays2.length; j++) {
+    var num1 = arrays2[j];
+    if (seen[num1]) {
+      seen[num1]++;
+    } else {
+      seen[num1] = 1;
+    }
+  }
+
+  for (var key in seen) {
+    var value = Number(key);
+    if (seen[key] == 1) {
+      finalArray.push(value);
+    }
+  }
+  return finalArray;
+}
+
+console.log(checkDifference(givenArr1, givenArr2));
+
 console.log("===== 6 =====");
 
-var givenArr1: any[] = [1, [], undefined, {}, "string", {}, []];
+var givenArr3: any[] = [1, [], undefined, {}, "string", {}, []];
 function checkArrayData(arrays: any[]) {
   var value: any[] = [];
   for (var i = 0; i < arrays.length; i++) {
@@ -89,19 +134,55 @@ console.log(checkArrayData(givenArr1));
 console.log("===== 7 =====");
 
 var givenArr1: any[] = [10, 20, 40, 10, 50, 30, 10, 60, 10];
+var seen: { [key: number]: number } = {};
 function sumDuplicate(arrays: any[]) {
   var value2: number = 0;
   for (var i = 0; i < arrays.length; i++) {
-    var value1 = arrays.filter((v) => v == arrays[i]);
-    if (value1.length > 1) {
-      for (var j = 0; j < value1.length; j++) {
-        console.log(value1[j]);
+    var num = arrays[i];
+    if (seen[num]) {
+      seen[num]++;
+    } else {
+      seen[num] = 1;
+    }
+  }
 
-        value2 += value1[j];
-      }
+  for (var key in seen) {
+    if (seen[key] > 1) {
+      value2 += Number(key) * seen[key];
     }
   }
   return value2;
 }
 
 console.log(sumDuplicate(givenArr1));
+
+console.log("===== 7 =====");
+
+function rpsGame(rps: string): string {
+  var option: string[] = ["rock", "paper", "scissor"];
+  var result: string = "";
+  var computer = option[Math.floor(Math.random() * 3)];
+  var rpsToUpper = rps.toUpperCase();
+  var computerToUpper = computer.toUpperCase();
+  if (rps === "rock" || rps === "paper" || rps === "scissor") {
+    if (
+      (computer === "rock" && rps === "paper") ||
+      (computer === "paper" && rps === "scissor") ||
+      (computer === "scissor" && rps === "rock")
+    ) {
+      result = `You pick: ${rpsToUpper}, Computer pick: ${computerToUpper}. Result is.............YOU WIN !!!`;
+    } else if (
+      (computer === "rock" && rps === "scissor") ||
+      (computer === "paper" && rps === "rock") ||
+      (computer === "scissor" && rps === "paper")
+    ) {
+      result = `You pick: ${rpsToUpper}, Computer pick: ${computerToUpper}. Result is.............YOU LOSE !!!`;
+    } else {
+      result = `You pick: ${rpsToUpper}, Computer pick: ${computerToUpper}. Result is.............DRAW !!!`;
+    }
+  } else {
+    result = "INVALID OPTION !!!";
+  }
+  return result;
+}
+console.log(rpsGame("scissor"));
