@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <title>Simple Counter</title>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      function Counter() {
+        const [count, setCount] = React.useState(0);
+        const result = "done";
+        function plus() {
+          count > 9 ? setCount((count = "done")) : setCount(count + 1);
+        }
+
+        function minus() {
+          count < 0 ? setCount((count = "done")) : setCount(count - 1);
+        }
+
+        function reset() {
+          setCount(count == 1);
+        }
+
+        return (
+          <div>
+            <p>
+              <button onClick={minus}>-</button>
+              {count > 9 || count < 0 ? "done" : count}
+              <button onClick={plus}>+</button> <br />
+              <button onClick={reset}>Reset</button>
+            </p>
+          </div>
+        );
+      }
+      root.render(<Counter />);
+    </script>
+  </body>
+</html>
